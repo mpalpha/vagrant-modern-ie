@@ -1,9 +1,9 @@
 ##vagrant-modern-ie
-Based on the virtual machine images released with the [Modern.IE project](http://dev.modern.ie/), modern-ie-vagrant makes testing IE easier with help from [Vagrant](http://vagrantup.com). The machine images in modern-ie-vagrant are based on the original images with the addition of activating WinRM to make them compatible with the [Vagrant WinRM communicator](http://docs.vagrantup.com/v2/vagrantfile/winrm_settings.html).
+Based on the virtual machine images released with the [Modern.IE project](http://dev.modern.ie/), vagrant-modern-ie makes testing IE easier with help from [Vagrant](http://vagrantup.com). The machine images in vagrant-modern-ie are based on the original Modern.IE project images.
 
 ##Prerequisites
 
-modern-ie-vagrant requires [Oracle Virtualbox](https://www.virtualbox.org/) and [Vagrant](http://vagrantup.com) be installed and in your path.
+vagrant-modern-ie requires [Oracle Virtualbox](https://www.virtualbox.org/) and [Vagrant](http://vagrantup.com) be installed and in your path.
 
 ##Usage
 
