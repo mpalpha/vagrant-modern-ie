@@ -56,6 +56,7 @@ ModernIE VMs
 * IE8-Win7
 * IE7-Vista  
 
-System Account Credentials:  
-Username: IEUser  
-Password: Passw0rd!  
+System Account Credentials
+
+* Username: IEUser  
+* Password: Passw0rd!  
