@@ -13,13 +13,25 @@ To list the available virtual machines
 vagrant status
 ```
 
-To start a new virtual machine
+To start a new virtual machine.
 
 ```bash
 vagrant up IE10-Win7
 ```
+  
+To remove all virtual machines (**will reset trial**).
 
-To start multiple virtual machines at once
+```bash
+vagrant destroy
+```
+
+To remove a specific virtual machine (**will reset trial**).
+
+```bash
+vagrant destroy IE10-Win7
+```
+
+To start multiple virtual machines at once.
 
 ```bash
 vagrant up edge-Win10 IE11-Win7 IE10-Win7 IE9-Win7 IE8-Win7
@@ -27,7 +39,8 @@ vagrant up edge-Win10 IE11-Win7 IE10-Win7 IE9-Win7 IE8-Win7
 
 ##Available Vagrant Boxes
 
-ModernIE VMs  
+ModernIE VMs
+
 * edge-Win10
 * IE11-Win7
 * IE11-Win8.1
@@ -40,4 +53,3 @@ ModernIE VMs
 System Account Credentials:  
 Username: IEUser  
 Password: Passw0rd!  
-
