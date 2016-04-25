@@ -5,6 +5,12 @@ Based on the virtual machine images released with the [Modern.IE project](http:/
 
 vagrant-modern-ie requires [Oracle Virtualbox](https://www.virtualbox.org/) and [Vagrant](http://vagrantup.com) be installed and in your path.
 
+##Installation
+
+```bash
+git clone https://github.com/mpalpha/vagrant-modern-ie.git
+```
+
 ##Usage
 
 To list the available virtual machines
