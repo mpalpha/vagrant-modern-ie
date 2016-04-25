@@ -27,7 +27,7 @@ vagrant up edge-Win10 IE11-Win7 IE10-Win7 IE9-Win7 IE8-Win7
 
 ##Available Vagrant Boxes
 
-ModernIE VMs
+ModernIE VMs  
 * edge-Win10
 * IE11-Win7
 * IE11-Win8.1
@@ -35,7 +35,9 @@ ModernIE VMs
 * IE10-Win8
 * IE9-Win7
 * IE8-Win7
-* IE7-Vista
-System Account Credentials
-Username: IEUser
-Password: Passw0rd!
+* IE7-Vista  
+
+System Account Credentials:  
+Username: IEUser  
+Password: Passw0rd!  
+
