@@ -48,7 +48,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--vram", "128"]
         vb.customize ["modifyvm", :id, "--cpus", "2"]
         vb.customize ["modifyvm", :id, "--ioapic", "on"]
-        vb.customize ["modifyvm", :id, "--natnet1", "10.0.0.0/8"]
+        vb.customize ["modifyvm", :id, "--natnet1", "10.0.0.0/24"]
         vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
         vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
@@ -57,4 +57,3 @@ Vagrant.configure(2) do |config|
     end
   end
 end
-
