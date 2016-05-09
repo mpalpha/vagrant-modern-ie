@@ -43,6 +43,11 @@ To start multiple virtual machines at once.
 vagrant up edge-Win10 IE11-Win7 IE10-Win7 IE9-Win7 IE8-Win7
 ```
 
+Windows 8+ Tip: redirect 127.0.0.1 to host ip. While in the Windows 8+ VM command prompt.
+```bash
+netsh interface portproxy add v4tov4 8000 10.0.0.3
+```
+
 ##Available Vagrant Boxes
 
 ModernIE VMs
