@@ -41,9 +41,9 @@ Vagrant.configure(2) do |config|
     config.winrm.password = "Passw0rd!"
 
     # redirect 127.0.0.1 to host ip(10.0.0.3) for windows8+ VM
-    config.vm.provision "shell", inline: <<-SHELL
-      netsh.exe interface portproxy add v4tov4 8000 10.0.0.3
-    SHELL
+    #config.vm.provision "shell", inline: <<-SHELL
+    #  netsh.exe interface portproxy add v4tov4 8000 10.0.0.3
+    #SHELL
 
     config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
     config.vm.define box[:name], autostart: false do |machine|
