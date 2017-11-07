@@ -3,58 +3,51 @@
 
 =begin
 ModernIE VMs
-xp-ie6
 xp-ie8
-vista-ie7
-win7-ie8
-win7-ie9
-win7-ie10
-win7-ie11
-win8-ie10
-win81-ie11
-win10-msedge
+w8-ie10
+w8.1-ie11
+w7-ie9
+w7-ie11
+EdgeOnWindows10
 System Account Credentials
 Username: IEUser
 Password: Passw0rd!
 =end
 
 boxes = [
-  {:name => "xp-ie6",:box => "vagrant-xp-ie6"},
-  {:name => "xp-ie8",:box => "vagrant-xp-ie8"},
-  {:name => "vista-ie7",:box => "vagrant-vista-ie7"},
-  {:name => "win7-ie8",:box => "vagrant-win7-ie8"},
-  {:name => "win7-ie9",:box => "vagrant-win7-ie9"},
-  {:name => "win7-ie10",:box => "vagrant-win7-ie10"},
-  {:name => "win7-ie11",:box => "vagrant-win7-ie11"},
-  {:name => "win8-ie10",:box => "vagrant-win8-ie10"},
-  {:name => "win81-ie11",:box => "vagrant-win81-ie11"},
-  {:name => "win10-msedge",:box => "vagrant-win10-msedge"},
+  {:name => "xp-ie8",:box => "rogeriopradoj/xp-ie8"},
+  {:name => "w8-ie10",:box => "rogeriopradoj/win8-ie10"},
+  {:name => "w8.1-ie11",:box => "rogeriopradoj/win81-ie11"},
+  {:name => "w7-ie9",:box => "getdigital/ie9-win7"},
+  {:name => "w7-ie11",:box => "xkx/win1"},
+  {:name => "EdgeOnWindows10",:box => "Microsoft/EdgeOnWindows10"},
 ]
 
 Vagrant.configure(2) do |config|
   boxes.each do |box|
     # If the box is win7-ie11, the convention for the box name is modern.ie/win7-ie11
-    config.vm.box = "modern.ie/#{box[:box]}"
+    # config.vm.box = "modernIE/#{box[:name]}"
+    config.vm.box = box[:box]
 
     # If the box is vagrant-win10-msedge use alternative url
-    if box[:box]=="vagrant-win10-msedge"
-      config.vm.box_url = "https://vagrantcloud.com/Microsoft/boxes/EdgeOnWindows10/versions/1.0/providers/virtualbox.box"
-    else
-      config.vm.box_url = "http://aka.ms/#{box[:box]}"
-    end
+    # config.vm.box_url = "http://aka.ms/#{box[:box]}"
 
     # big timeout since windows boot is very slow
     config.vm.boot_timeout = 500
     config.vm.guest = :windows
+    config.ssh.username = 'IEUser'
+    config.ssh.password = 'Passw0rd!'
+
     config.vm.communicator = "winrm"
     config.winrm.username = "IEUser"
     config.winrm.password = "Passw0rd!"
 
     # redirect 127.0.0.1 to host ip(10.0.0.3) for windows8+ VM
-    if box[:box] !~ /ie6|ie7/i
+    if box[:name] !~ /ie6|ie7/i
     config.vm.provision "shell", inline: <<-SHELL
       netsh.exe interface portproxy add v4tov4 3001 10.0.0.3
     SHELL
+    end
 
     config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
     config.vm.define box[:name], autostart: false do |machine|
