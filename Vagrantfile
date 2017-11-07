@@ -7,6 +7,7 @@ xp-ie8
 w8-ie10
 w8.1-ie11
 w7-ie9
+w7-ie10
 w7-ie11
 EdgeOnWindows10
 System Account Credentials
@@ -19,7 +20,8 @@ boxes = [
   {:name => "w8-ie10",:box => "rogeriopradoj/win8-ie10"},
   {:name => "w8.1-ie11",:box => "rogeriopradoj/win81-ie11"},
   {:name => "w7-ie9",:box => "getdigital/ie9-win7"},
-  {:name => "w7-ie11",:box => "xkx/win1"},
+  {:name => "w7-ie10",:box => "ferhaty/win7ie10winrm"},
+  {:name => "w7-ie11",:box => "vitaminless/modern_ie11_win7_for_mac"},
   {:name => "EdgeOnWindows10",:box => "Microsoft/EdgeOnWindows10"},
 ]
 
