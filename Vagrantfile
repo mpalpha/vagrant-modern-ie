@@ -36,13 +36,28 @@ Vagrant.configure(2) do |config|
 
     # big timeout since windows boot is very slow
     config.vm.boot_timeout = 500
-    config.vm.guest = :windows
+    config.vm.guest = :windows  
+
+    if box[:name] !~ /w7-ie10/i
+    config.vm.box_url = "https://atlas.hashicorp.com/ferhaty/boxes/win7ie10winrm"
+    config.ssh.forward_agent = false
+    config.ssh.insert_key = false
+
+    config.vm.communicator = "winrm"
+    config.winrm.username = 'vagrant'
+    config.winrm.password = 'vagrant'
+    config.vm.box_check_update = true
+    #config.vm.network :private_network, ip: "192.168.10.26"
+    #config.vm.network :forwarded_port, guest:8000, host:8000
+    #config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
+    else
     config.ssh.username = 'IEUser'
     config.ssh.password = 'Passw0rd!'
 
     config.vm.communicator = "winrm"
     config.winrm.username = "IEUser"
     config.winrm.password = "Passw0rd!"
+    end
 
     # redirect 127.0.0.1 to host ip(10.0.0.3) for windows8+ VM
     if box[:name] !~ /ie6|ie7/i
@@ -59,7 +74,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--vram", "128"]
         vb.customize ["modifyvm", :id, "--cpus", "2"]
         vb.customize ["modifyvm", :id, "--ioapic", "on"]
-        vb.customize ["modifyvm", :id, "--natnet1", "10.0.0.0/24"]
+        vb.customize ["modifyvm", :id, "--natnet1", "172.16.1/24"]
         vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
         vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
