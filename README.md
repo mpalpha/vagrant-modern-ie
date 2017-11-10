@@ -1,17 +1,17 @@
-##vagrant-modern-ie
+## vagrant-modern-ie
 Based on the virtual machine images released with the [Modern.IE project](http://dev.modern.ie/), vagrant-modern-ie makes testing IE easier with help from [Vagrant](http://vagrantup.com). The machine images in vagrant-modern-ie are based on the original Modern.IE project images.
 
-##Prerequisites
+## Prerequisites
 
 vagrant-modern-ie requires [Oracle Virtualbox](https://www.virtualbox.org/) and [Vagrant](http://vagrantup.com) be installed and in your path.
 
-##Installation
+## Installation
 
 ```bash
 git clone https://github.com/mpalpha/vagrant-modern-ie.git
 ```
 
-##Usage
+## Usage
 
 To list the available virtual machines
 
@@ -44,14 +44,14 @@ vagrant up edge-Win10 IE11-Win7 IE10-Win7 IE9-Win7 IE8-Win7
 ```
 
 
-##Tips
+## Tips
 
 Redirect 127.0.0.1 to the host ip while in the Windows 8+ VM command prompt.
 ```bash
 netsh interface portproxy add v4tov4 8000 10.0.0.3
 ```
 
-##Available Vagrant Boxes
+## Available Vagrant Boxes
 
 ModernIE VMs
 
