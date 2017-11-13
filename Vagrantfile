@@ -15,12 +15,12 @@ Password: Passw0rd!
 
 # download the vagrant boxes from https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
 boxes = [
-  {:name => "ie8-win7",:box => "IE8 - Win7.box"},
-  {:name => "ie9-win7",:box => "IE9 - Win7.box"},
-  {:name => "ie10-win7",:box => "IE10 - Win7.box"},
-  {:name => "ie11-win7",:box => "IE11 - Win7.box"},
-  {:name => "ie11-win81",:box => "IE11 - Win81.box"},
-  {:name => "msedge-win10",:box => "MSEdge - Win10.box"}
+	{:name => "ie8-win7",:box => "IE8 - Win7.box"},
+	{:name => "ie9-win7",:box => "IE9 - Win7.box"},
+	{:name => "ie10-win7",:box => "IE10 - Win7.box"},
+	{:name => "ie11-win7",:box => "IE11 - Win7.box"},
+	{:name => "ie11-win81",:box => "IE11 - Win81.box"},
+	{:name => "msedge-win10",:box => "MSEdge - Win10.box"}
 ]
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -29,48 +29,47 @@ boxes = [
 # you're doing.
 
 Vagrant.configure("2") do |config|
+	boxes.each do |box|
+		# The most common configuration options are documented and commented below.
+		# For a complete reference, please see the online documentation at
+		# https://docs.vagrantup.com.
 
-  boxes.each do |box|
-    # The most common configuration options are documented and commented below.
-    # For a complete reference, please see the online documentation at
-    # https://docs.vagrantup.com.
+		# Every Vagrant development environment requires a box. You can search for
+		# boxes at https://atlas.hashicorp.com/search.
+		config.vm.box_url = "file://#{box[:box]}"
+		config.vm.box = box[:name]
 
-    # Every Vagrant development environment requires a box. You can search for
-    # boxes at https://atlas.hashicorp.com/search.
-    config.vm.box_url = "file://#{box[:box]}"
-    config.vm.box = box[:name]
+		# configure SSH
+		# config.ssh.forward_agent = false
+		# config.ssh.insert_key = false
+		config.ssh.username = 'IEUser'
+		config.ssh.password = 'Passw0rd!'
 
-    # configure SSH
-    # config.ssh.forward_agent = false
-    # config.ssh.insert_key = false
-    config.ssh.username = 'IEUser'
-    config.ssh.password = 'Passw0rd!'
+		# Disable automatic box update checking. If you disable this, then
+		# boxes will only be checked for updates when the user runs
+		# `vagrant box outdated`. This is not recommended.
+		# config.vm.box_check_update = false
 
-    # Disable automatic box update checking. If you disable this, then
-    # boxes will only be checked for updates when the user runs
-    # `vagrant box outdated`. This is not recommended.
-    # config.vm.box_check_update = false
+		# Create a forwarded port mapping which allows access to a specific port
+		# within the machine from a port on the host machine. In the example below,
+		# accessing "localhost:8080" will access port 80 on the guest machine.
+		# config.vm.network "forwarded_port", guest: 80, host: 8080
 
-    # Create a forwarded port mapping which allows access to a specific port
-    # within the machine from a port on the host machine. In the example below,
-    # accessing "localhost:8080" will access port 80 on the guest machine.
-    # config.vm.network "forwarded_port", guest: 80, host: 8080
+		# Create a private network, which allows host-only access to the machine
+		# using a specific IP.
+		# config.vm.network "private_network", ip: "192.168.33.10"
 
-    # Create a private network, which allows host-only access to the machine
-    # using a specific IP.
-    # config.vm.network "private_network", ip: "192.168.33.10"
+		# Create a public network, which generally matched to bridged network.
+		# Bridged networks make the machine appear as another physical device on
+		# your network.
+		# config.vm.network "public_network", use_dhcp_assigned_default_route: true
+		### host ip is 10.0.2.2
 
-    # Create a public network, which generally matched to bridged network.
-    # Bridged networks make the machine appear as another physical device on
-    # your network.
-    # config.vm.network "public_network", use_dhcp_assigned_default_route: true
-    ### host ip is 10.0.2.2
-
-    # Share an additional folder to the guest VM. The first argument is
-    # the path on the host to the actual folder. The second argument is
-    # the path on the guest to mount the folder. And the optional third
-    # argument is a set of non-required options.
-    # config.vm.synced_folder "../data", "/vagrant_data"
+		# Share an additional folder to the guest VM. The first argument is
+		# the path on the host to the actual folder. The second argument is
+		# the path on the guest to mount the folder. And the optional third
+		# argument is a set of non-required options.
+		# config.vm.synced_folder "../data", "/vagrant_data"
 
 
     config.vm.define box[:name], autostart: false do |machine|
@@ -115,6 +114,6 @@ Vagrant.configure("2") do |config|
         echo "#{box[:name]} password is "Passw0rd!"
         echo "Local host IP address is http://10.0.2.2"
       EOF
-      end
     end
+  end
 end
