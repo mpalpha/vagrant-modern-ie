@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://atlas.hashicorp.com/search.
-    config.vm.box_url = box[:box]
+    config.vm.box_url = "file://#{box[:box]}"
     config.vm.box = box[:name]
 
     # configure SSH
