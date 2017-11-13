@@ -1,16 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# auto install plugins
+required_plugins = %w[vagrant-atomic]
+required_plugins.each do |plugin|
+  exec "sudo vagrant plugin install #{plugin};vagrant #{ARGV.join(' ')}" unless Vagrant.has_plugin? plugin || ARGV[0] == 'plugin'
+end
+
 info_heredoc = <<-HEREDOC
-ie8-win7
-ie9-win7
-ie10-win7
-ie11-win7
-ie11-win81
-msedge-win10
-System Account Credentials
-Username: IEUser
-Password: Passw0rd!
+  ie8-win7
+  ie9-win7
+  ie10-win7
+  ie11-win7
+  ie11-win81
+  msedge-win10
+  System Account Credentials
+  Username: IEUser
+  Password: Passw0rd!
 HEREDOC
 
 # download the vagrant boxes from https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
