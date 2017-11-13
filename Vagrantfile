@@ -2,84 +2,121 @@
 # vi: set ft=ruby :
 
 =begin
-ModernIE VMs
-xp-ie8
-w8-ie10
-w8.1-ie11
-w7-ie9
-w7-ie10
-w7-ie11
-EdgeOnWindows10
+  
+ie8-win7",:box => "IE8 - Win7.box
+ie9-win7",:box => "IE9 - Win7.box
+ie10-win7",:box => "IE10 - Win7.box
+ie11-win7",:box => "IE11 - Win7.box
+ie11-win81",:box => "IE11 - Win81.box
+msedge-win10
+
 System Account Credentials
 Username: IEUser
 Password: Passw0rd!
 =end
 
+# download the vagrant boxes from https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
 boxes = [
-  {:name => "xp-ie8",:box => "rogeriopradoj/xp-ie8"},
-  {:name => "w8-ie10",:box => "rogeriopradoj/win8-ie10"},
-  {:name => "w8.1-ie11",:box => "rogeriopradoj/win81-ie11"},
-  {:name => "w7-ie9",:box => "getdigital/ie9-win7"},
-  {:name => "w7-ie10",:box => "ferhaty/win7ie10winrm"},
-  {:name => "w7-ie11",:box => "vitaminless/modern_ie11_win7_for_mac"},
-  {:name => "EdgeOnWindows10",:box => "Microsoft/EdgeOnWindows10"},
+  {:name => "ie8-win7",:box => "IE8 - Win7.box"},
+  {:name => "ie9-win7",:box => "IE9 - Win7.box"},
+  {:name => "ie10-win7",:box => "IE10 - Win7.box"},
+  {:name => "ie11-win7",:box => "IE11 - Win7.box"},
+  {:name => "ie11-win81",:box => "IE11 - Win81.box"},
+  {:name => "msedge-win10",:box => "MSEdge - Win10.box"}
 ]
 
-Vagrant.configure(2) do |config|
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+Vagrant.configure("2") do |config|
+
   boxes.each do |box|
-    # If the box is win7-ie11, the convention for the box name is modern.ie/win7-ie11
-    # config.vm.box = "modernIE/#{box[:name]}"
-    config.vm.box = box[:box]
+    # The most common configuration options are documented and commented below.
+    # For a complete reference, please see the online documentation at
+    # https://docs.vagrantup.com.
 
-    # If the box is vagrant-win10-msedge use alternative url
-    # config.vm.box_url = "http://aka.ms/#{box[:box]}"
+    # Every Vagrant development environment requires a box. You can search for
+    # boxes at https://atlas.hashicorp.com/search.
+    config.vm.box_url = box[:box]
+    config.vm.box = box[:name]
 
-    # big timeout since windows boot is very slow
-    config.vm.boot_timeout = 500
-    config.vm.guest = :windows  
-
-    if box[:name] !~ /w7-ie10/i
-    config.vm.box_url = "https://atlas.hashicorp.com/ferhaty/boxes/win7ie10winrm"
-    config.ssh.forward_agent = false
-    config.ssh.insert_key = false
-
-    config.vm.communicator = "winrm"
-    config.winrm.username = 'vagrant'
-    config.winrm.password = 'vagrant'
-    config.vm.box_check_update = true
-    #config.vm.network :private_network, ip: "192.168.10.26"
-    #config.vm.network :forwarded_port, guest:8000, host:8000
-    #config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
-    else
+    # configure SSH
+    # config.ssh.forward_agent = false
+    # config.ssh.insert_key = false
     config.ssh.username = 'IEUser'
     config.ssh.password = 'Passw0rd!'
 
-    config.vm.communicator = "winrm"
-    config.winrm.username = "IEUser"
-    config.winrm.password = "Passw0rd!"
-    end
+    # Disable automatic box update checking. If you disable this, then
+    # boxes will only be checked for updates when the user runs
+    # `vagrant box outdated`. This is not recommended.
+    # config.vm.box_check_update = false
 
-    # redirect 127.0.0.1 to host ip(10.0.0.3) for windows8+ VM
-    if box[:name] !~ /ie6|ie7/i
-    config.vm.provision "shell", inline: <<-SHELL
-      netsh.exe interface portproxy add v4tov4 3001 10.0.0.3
-    SHELL
-    end
+    # Create a forwarded port mapping which allows access to a specific port
+    # within the machine from a port on the host machine. In the example below,
+    # accessing "localhost:8080" will access port 80 on the guest machine.
+    # config.vm.network "forwarded_port", guest: 80, host: 8080
 
-    config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+    # Create a private network, which allows host-only access to the machine
+    # using a specific IP.
+    # config.vm.network "private_network", ip: "192.168.33.10"
+
+    # Create a public network, which generally matched to bridged network.
+    # Bridged networks make the machine appear as another physical device on
+    # your network.
+    # config.vm.network "public_network", use_dhcp_assigned_default_route: true
+    ### host ip is 10.0.2.2
+
+    # Share an additional folder to the guest VM. The first argument is
+    # the path on the host to the actual folder. The second argument is
+    # the path on the guest to mount the folder. And the optional third
+    # argument is a set of non-required options.
+    # config.vm.synced_folder "../data", "/vagrant_data"
+
+
     config.vm.define box[:name], autostart: false do |machine|
-      machine.vm.box = box[:box]
+      machine.vm.box = box[:name]
+      # Provider-specific configuration so you can fine-tune various
+      # backing providers for Vagrant. These expose provider-specific options.
+      # Example for VirtualBox:
+      #
       config.vm.provider "virtualbox" do |vb|
+        #   # Display the VirtualBox GUI when booting the machine
+        vb.gui = true
+        #
+        #   # Customize the amount of memory on the VM:
+        vb.memory = "1024"
         vb.customize ["modifyvm", :id, "--memory", "1024"]
         vb.customize ["modifyvm", :id, "--vram", "128"]
         vb.customize ["modifyvm", :id, "--cpus", "2"]
         vb.customize ["modifyvm", :id, "--ioapic", "on"]
-        vb.customize ["modifyvm", :id, "--natnet1", "172.16.1/24"]
         vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
         vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-        vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
-        vb.gui = true
+      end
+      #
+      # View the documentation for the provider you are using for more
+      # information on available options.
+
+      # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
+      # such as FTP and Heroku are also available. See the documentation at
+      # https://docs.vagrantup.com/v2/push/atlas.html for more information.
+      # config.push.define "atlas" do |push|
+      #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
+      # end
+
+      # Enable provisioning with a shell script. Additional provisioners such as
+      # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+      # documentation for more information about their specific syntax and use.
+      # config.vm.provision "shell", inline: <<-SHELL
+      #   apt-get update
+      #   apt-get install -y apache2
+      # SHELL
+      config.vm.provision "shell", privileged: false, inline: <<-EOF
+        echo "Vagrant Box provisioned!"
+        echo "#{box[:name]} password is "Passw0rd!"
+        echo "Local host IP address is http://10.0.2.2"
+      EOF
       end
     end
-  end
 end
