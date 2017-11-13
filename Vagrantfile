@@ -2,14 +2,12 @@
 # vi: set ft=ruby :
 
 =begin
-  
-ie8-win7",:box => "IE8 - Win7.box
-ie9-win7",:box => "IE9 - Win7.box
-ie10-win7",:box => "IE10 - Win7.box
-ie11-win7",:box => "IE11 - Win7.box
-ie11-win81",:box => "IE11 - Win81.box
+ie8-win7
+ie9-win7
+ie10-win7
+ie11-win7
+ie11-win81
 msedge-win10
-
 System Account Credentials
 Username: IEUser
 Password: Passw0rd!
