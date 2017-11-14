@@ -21,12 +21,12 @@ HEREDOC
 
 # download the vagrant boxes from https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
 boxes = [
-  { name: 'ie8-win7', box: 'IE8 - Win7.box' },
-  { name: 'ie9-win7', box: 'IE9 - Win7.box' },
-  { name: 'ie10-win7', box: 'IE10 - Win7.box' },
-  { name: 'ie11-win7', box: 'IE11 - Win7.box' },
-  { name: 'ie11-win81', box: 'IE11 - Win81.box' },
-  { name: 'msedge-win10', box: 'MSEdge - Win10.box' }
+  { name: 'ie8-win7', box: 'IE8 - Win7' },
+  { name: 'ie9-win7', box: 'IE9 - Win7' },
+  { name: 'ie10-win7', box: 'IE10 - Win7' },
+  { name: 'ie11-win7', box: 'IE11 - Win7' },
+  { name: 'ie11-win81', box: 'IE11 - Win81' },
+  { name: 'msedge-win10', box: 'MSEdge - Win10' }
 ]
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -42,7 +42,7 @@ Vagrant.configure('2') do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://atlas.hashicorp.com/search.
-    config.vm.box_url = "file://#{box[:box]}"
+    config.vm.box_url = box[:box]
     config.vm.box = box[:name]
 
     # configure SSH
