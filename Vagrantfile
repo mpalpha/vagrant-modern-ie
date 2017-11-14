@@ -20,7 +20,7 @@ info_heredoc = <<-HEREDOC
 HEREDOC
 
 # download the vagrant boxes from https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
-# and remove the spaces (older vagrant issue)
+# extract the box you need and remove the spaces from the box filename (older vagrant issue)
 boxes = [
   { name: 'ie8-win7', box: 'IE8-Win7' },
   { name: 'ie9-win7', box: 'IE9-Win7' },
